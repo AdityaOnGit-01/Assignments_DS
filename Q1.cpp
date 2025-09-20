@@ -1,70 +1,36 @@
 #include <iostream>
 using namespace std;
 
-class ArrayOps {
-    int arr[100], n;
-public:
-    ArrayOps() { n = 0; }
+int linearSearch(int arr[], int n, int key) {
+    for (int i = 0; i < n; i++)
+        if (arr[i] == key) return i;
+    return -1;
+}
 
-    void create() {
-        cout << "Enter size: ";
-        cin >> n;
-        cout << "Enter elements: ";
-        for (int i = 0; i < n; i++) cin >> arr[i];
+int binarySearch(int arr[], int n, int key) {
+    int low = 0, high = n - 1;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if (arr[mid] == key) return mid;
+        else if (arr[mid] > key) high = mid - 1;
+        else low = mid + 1;
     }
-
-    void display() {
-        cout << "Array: ";
-        for (int i = 0; i < n; i++) cout << arr[i] << " ";
-        cout << "\n";
-    }
-
-    void insert() {
-        int pos, val;
-        cout << "Enter position(0-based) and value: ";
-        cin >> pos >> val;
-        if (pos < 0 || pos > n) { cout << "Invalid position\n"; return; }
-        for (int i = n; i > pos; i--) arr[i] = arr[i-1];
-        arr[pos] = val;
-        n++;
-    }
-
-    void remove() {
-        int pos;
-        cout << "Enter position(0-based): ";
-        cin >> pos;
-        if (pos < 0 || pos >= n) { cout << "Invalid position\n"; return; }
-        for (int i = pos; i < n-1; i++) arr[i] = arr[i+1];
-        n--;
-    }
-
-    void linearSearch() {
-        int key;
-        cout << "Enter element: ";
-        cin >> key;
-        for (int i = 0; i < n; i++) {
-            if (arr[i] == key) {
-                cout << "Found at position " << i << "\n";
-                return;
-            }
-        }
-        cout << "Not found\n";
-    }
-};
+    return -1;
+}
 
 int main() {
-    ArrayOps obj;
-    int ch;
-    do {
-        cout << "\n--- MENU ---\n1.CREATE\n2.DISPLAY\n3.INSERT\n4.DELETE\n5.LINEAR SEARCH\n6.EXIT\n";
-        cin >> ch;
-        switch (ch) {
-            case 1: obj.create(); break;
-            case 2: obj.display(); break;
-            case 3: obj.insert(); break;
-            case 4: obj.remove(); break;
-            case 5: obj.linearSearch(); break;
-        }
-    } while (ch != 6);
+    int arr[] = {10, 20, 30, 40, 50};
+    int n = 5, key;
+    cout << "Enter element to search: ";
+    cin >> key;
+
+    int idx1 = linearSearch(arr, n, key);
+    if (idx1 != -1) cout << "Linear Search: Found at index " << idx1 << "\n";
+    else cout << "Linear Search: Not Found\n";
+
+    int idx2 = binarySearch(arr, n, key);
+    if (idx2 != -1) cout << "Binary Search: Found at index " << idx2 << "\n";
+    else cout << "Binary Search: Not Found\n";
     return 0;
 }
+

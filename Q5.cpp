@@ -2,24 +2,22 @@
 using namespace std;
 
 int main() {
-    int A[10][10], r, c;
-    cout << "Enter rows and cols: ";
-    cin >> r >> c;
-    cout << "Enter matrix:\n";
-    for (int i=0;i<r;i++) for(int j=0;j<c;j++) cin>>A[i][j];
+    int n = 4; // Example size
+    int diag[4] = {1,2,3,4}; // diagonal matrix storage
+    cout << "Diagonal Matrix stored as 1D: ";
+    for(int i=0;i<n;i++) cout<<diag[i]<<" ";
+    cout<<"\n";
+    
+    int triDiag[3*4-2] = {1,2,3,4,5,6,7,8,9,10}; // tri-diagonal storage
+    cout << "Tri-diagonal stored size: " << (3*n-2) << "\n";
 
-    cout << "Row sums:\n";
-    for (int i=0;i<r;i++) {
-        int sum=0;
-        for (int j=0;j<c;j++) sum+=A[i][j];
-        cout<<"Row "<<i<<" sum = "<<sum<<"\n";
-    }
+    int lower[(n*(n+1))/2]; 
+    cout << "Lower triangular needs " << (n*(n+1))/2 << " elements\n";
 
-    cout << "Column sums:\n";
-    for (int j=0;j<c;j++) {
-        int sum=0;
-        for (int i=0;i<r;i++) sum+=A[i][j];
-        cout<<"Col "<<j<<" sum = "<<sum<<"\n";
-    }
+    int upper[(n*(n+1))/2]; 
+    cout << "Upper triangular needs " << (n*(n+1))/2 << " elements\n";
+
+    int sym[(n*(n+1))/2];
+    cout << "Symmetric needs " << (n*(n+1))/2 << " elements\n";
     return 0;
 }
